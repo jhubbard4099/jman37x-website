@@ -1,0 +1,101 @@
+/* ----------------- */
+/*  Universal Rules  */
+/* ----------------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* * {border:1px solid red} */
+
+
+/* ------------ */
+/*  Main Rules  */
+/* ------------ */
+
+body {
+  display: flex;
+  
+  flex-direction: column;
+  min-height: 100vh;
+
+  font-family: 'Courier New', Courier, monospace;
+  background-color: rgb(255, 198, 198);
+}
+
+#card {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 100px;
+  
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
+
+  background-color: rgb(250, 215, 215);
+  border-style: solid;
+  border-color: rgb(192, 140, 140);
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 10px;
+}
+
+#navigation {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5px;
+  gap: 20px;
+
+  border-bottom: solid;
+  border-color: rgb(192, 140, 140);
+}
+
+#header, #footer {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.24);
+}
+
+#header {
+  justify-content: space-between;
+}
+
+#footer {
+  justify-content: center;
+}
+
+#quick-links {
+  display: flex;
+  flex-direction: column;
+  gap: 5px
+}
+
+
+/* ------------ */
+/*  Misc Rules  */
+/* ------------ */
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+time {
+  font-style: italic;
+}
+
+button {
+  cursor: pointer;
+}
