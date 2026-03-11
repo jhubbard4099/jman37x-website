@@ -10,10 +10,46 @@
 //  CONSTANTS & GLOBALS  //
 // --------------------- //
 
-// TODO: Collection mananger class
-// TODO: Store as a dictionary?
+// Build donation manager, then displays list of donations
 const donationManager = buildDonationManager();
-var lastCollection = [];
+displayDonations();
+
+
+// ------------------ //
+//  HELPER FUNCTIONS  //
+// ------------------ //
+
+// Checks if a row is valid to be turned into a donation
+// Parameters: row - spreadsheet row to convert to a donation object
+// Returns:    true if the row is valid, false otherwise
+// 
+// Note: assumes the following row format:
+//    Donator - Amount - Type - Message
+function rowIsValid(row)
+{
+  // Checks if the donator, amount, and type fields are all filled
+  const isValid = ((row[0] !== null) && (row[1] !== null) && (row[2] !== null));
+
+  if (MANAGER_DEBUG && !isValid) console.error("INVALID DONATION");
+
+  return isValid;
+}
+
+
+// -------------------- //
+//  CREATION FUNCTIONS  //
+// -------------------- //
+
+// Object representing a donation manager
+// Parameters: TODO
+class DonationManager {
+  constructor(donationArray, totalMoney) {
+    this.donator = donator;
+    this.amount = amount;
+    this.type = type;
+    this.message = message;
+  }
+}
 
 
 // -------------------- //
@@ -25,14 +61,9 @@ var lastCollection = [];
 async function fetchSheetData()
 {
   // Declare scraper variables
-  const sheetID = "1fIHHGmDPQj8QgfZ3xb5kGuOwyp2A1XIF8oQlH7dF-ks";
-  const sheetName = "Donations"
-  const mainURL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?sheet=${sheetName}`;
-
-  const testID = "1EpijaGgCD-AGFlejKhpSs-P9QG1q3g86-2PumGFCRiA"
-  const testURL = `https://docs.google.com/spreadsheets/d/${testID}/gviz/tq?sheet=${sheetName}`;
-
-  const URL = (TEST_URL) ? testURL : mainURL;
+  const sheetID = "1EpijaGgCD-AGFlejKhpSs-P9QG1q3g86-2PumGFCRiA";
+  const sheetName = (TEST_SHEET) ? "Test" : "Donations";
+  const URL = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?sheet=${sheetName}`;
 
   var sheet = null;
 
@@ -57,7 +88,7 @@ async function fetchSheetData()
 // Returns: an array representing a donation manager
 async function buildDonationManager()
 {
-  const recordCollection = [];
+  const donationArray = [];
   var sheet = await fetchSheetData();
 
   // total number of rows to check
@@ -72,12 +103,12 @@ async function buildDonationManager()
     if(rowIsValid(curRow))
     {
       var curDonation = createDonation(curRow);
-      donationManager.push(curDonation);
+      donationArray.push(curDonation);
       if (MANAGER_DEBUG) donationToString(curDonation);
     }
   }
 
-  return donationManager;
+  return donationArray;
 }
 
 
@@ -85,44 +116,33 @@ async function buildDonationManager()
 //  PROCESSING FUNCTIONS  //
 // ---------------------- //
 
-// Reads the global donation manager,
-// and displays it as a table
-// Parameters: recordCollection - collection to display as a table
-//             showKeywords     - boolean on if the keywords column should be displayed
-// TODO: Modify to handle queue table differently
-function readCollection(recordCollection, showKeywords)
+// Reads the global donation manager, and displays it as a table
+// Parameters: donationCollection  - donation list to display as a table
+function readDonations(donationCollection)
 {
-  if (MANAGER_DEBUG) console.log(`Collection size: ${recordCollection.length} | Show Keywords: ${showKeywords}`);
-  
-  const isQueue = recordCollection === currentQueue;
-
-  // Only display if there are actually records to show
-  if(recordCollection.length <= 0 && lastFunction !== "TABLE")
-  {
-    clearCollection();
-    return;
-  }
+  if (MANAGER_DEBUG) console.log(`Donation amount: ${donationCollection.length}`);
 
   // Begin building record table
-  var outputHTML = beginCollectionTable(showKeywords);
+  var outputHTML = beginDonationTable();
 
-  // Convert each record to HTML and add to output
-  for(var i = 0; i < recordCollection.length; i++)
+  // Convert each donation to HTML and add to output
+  for(var i = 0; i < donationCollection.length; i++)
   {
-    var curRecord = recordCollection[i];
+    var curDonation = donationCollection[i];
 
-    if (MANAGER_DEBUG) console.log(`Record #${i+1}:`);
+    if (MANAGER_DEBUG) console.log(`Donation #${i+1}:`);
     
-    outputHTML += recordToTable(curRecord, showKeywords, isQueue);
+    outputHTML += donationToTable(curDonation);
   }
-  outputHTML += endCollectionTable();
+  outputHTML += endDonationTable();
 
-  document.getElementById("htmlCollection").innerHTML = outputHTML;
+  document.getElementById("htmlDonationTable").innerHTML = outputHTML;
 }
 
-// Clears all HTML from the collection table
-function clearCollection()
+// Displays the donation list as a table
+async function displayDonations()
 {
-  lastCollection = [];
-  document.getElementById("htmlCollection").innerHTML = "";
+  var donationCollection = await donationManager;
+  
+  readDonations(donationCollection);
 }

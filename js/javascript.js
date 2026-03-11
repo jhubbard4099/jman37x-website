@@ -5,11 +5,12 @@
 // --------------------- //
 
 // Testing constants
-const TEST_URL = true;
+const TEST_SHEET = true;
 const MAIN_DEBUG = false;
 const MANAGER_DEBUG = false;
+const TABLE_DEBUG = false;
+const DONATION_DEBUG = false;
 
 // ----------- //
 //  FUNCTIONS  //
 // ----------- //
-
