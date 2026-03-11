@@ -6,12 +6,38 @@
 // Test sheet: https://docs.google.com/spreadsheets/d/13ooKXitlRdYBmN1CWV8ylQULB_wPFZmnIZONTYyRR8k
 
 
-// --------------------- //
-//  CONSTANTS & GLOBALS  //
-// --------------------- //
+// -------------------- //
+//  MANAGER FUNCTIONS  //
+// -------------------- //
 
-// Build donation manager, then displays list of donations
-const donationManager = buildDonationManager();
+// Object representing a donation manager
+class DonationManager {
+  constructor() {
+    // Float representing the total donation amount
+    this.total = 0;
+
+    // Float(?) representing how much time remains of the stream
+    this.time = 0;
+
+    // Array containing all donations
+    this.list = [];
+
+    // Map containing all donators and their total donation amounts
+    this.leaderboard = new Map();
+
+    // Map containing the current poll results
+    this.polls = new Map();
+    this.polls.set("hairCut", 0);
+    this.polls.set("beardCut", 0);
+    this.polls.set("hairKeep", 0);
+    this.polls.set("beardKeep", 0);
+    this.polls.set("hairColor", new Map());
+    this.polls.set("beardColor", new Map());
+  }
+}
+
+// Create donation manager, populate it, then displays list of donations
+const donationManager = new DonationManager();
 displayDonations();
 
 
@@ -35,19 +61,24 @@ function rowIsValid(row)
   return isValid;
 }
 
-
-// -------------------- //
-//  CREATION FUNCTIONS  //
-// -------------------- //
-
-// Object representing a donation manager
-// Parameters: TODO
-class DonationManager {
-  constructor(donationArray, totalMoney) {
-    this.donator = donator;
-    this.amount = amount;
-    this.type = type;
-    this.message = message;
+// Checks if a key is present in a given map.
+// If so, increase its value by the input. 
+// If not, insert that key/value pair
+// Parameters: map - Map to increase/insert value into
+//             key - key which is being searched for
+//             value - numeric value to increase by
+// 
+// Note: assumes the map has global visibility (does not return anything)
+function increaseOrInsertMap(map, key, value)
+{
+  if(map.has(key))
+  {
+    var oldValue = map.get(key)
+    map.set(key, oldValue + value)
+  }
+  else
+  {
+    map.set(key, value)
   }
 }
 
@@ -83,12 +114,10 @@ async function fetchSheetData()
 }
 
 // Fetches the spreadsheet json, creates donation objects
-// for each valid row of the spreadsheet, and stores
-// them into the global donation manager.
-// Returns: an array representing a donation manager
+// for each valid row of the spreadsheet, and updates all
+// necessary fields in the global DonationManager
 async function buildDonationManager()
 {
-  const donationArray = [];
   var sheet = await fetchSheetData();
 
   // total number of rows to check
@@ -102,13 +131,65 @@ async function buildDonationManager()
 
     if(rowIsValid(curRow))
     {
+      // Build donation object
       var curDonation = createDonation(curRow);
-      donationArray.push(curDonation);
       if (MANAGER_DEBUG) donationToString(curDonation);
+
+      // Extract some info we'll need
+      var curDonator = curDonation.donator;
+      var curAmount = curDonation.amount
+
+      // Update non-Map properties
+      donationManager.total += curAmount;
+      donationManager.time += curAmount; // TODO
+      donationManager.list.push(curDonation);
+
+      // Update leaderboard Map
+      increaseOrInsertMap(donationManager.leaderboard, curDonator, curAmount)
+
+      // Update poll Map (and sub-Maps)
+      updatePollMaps(curDonation);
     }
   }
 
-  return donationArray;
+  // Sort the Maps from largest to smallest values
+  donationManager.leaderboard = new Map([...donationManager.leaderboard.entries()].sort((a, b) => b[1] - a[1]));
+  donationManager.polls.set("hairColor", new Map([...donationManager.polls.get("hairColor").entries()].sort((a, b) => b[1] - a[1])));
+  donationManager.polls.set("beardColor", new Map([...donationManager.polls.get("beardColor").entries()].sort((a, b) => b[1] - a[1])));
+}
+
+// Updates the global DonationManager poll Map, including sub-Maps.
+// This includes increasing the numeric values of hairCut, beardCut, hairKeep, beardKeep,
+// as well as adding the hairColor to its respective sub-Map if necessary/increasing its value
+// Parameters: donation - current donation to add to the hair/beard polls
+function updatePollMaps(donation)
+{
+  var hairType = `${donation.hairType}`
+  var tempAmount = 0;
+
+  // Early return if no hair type specified
+  if(hairType == "")
+  {
+    return;
+  }
+
+  // Update corresponding cut/keep value
+  if(donation.hairLength == "shorter")
+  {
+    tempAmount = donationManager.polls.get(`${hairType}Cut`);
+    donationManager.polls.set(`${hairType}Cut`, tempAmount + donation.amount);
+  }
+  if(donation.hairLength == "longer")
+  {
+    tempAmount = donationManager.polls.get(`${hairType}Keep`);
+    donationManager.polls.set(`${hairType}Keep`, tempAmount + donation.amount);
+  }
+
+  // Send color logic to custom Map function
+  if(donation.hairColor != "")
+  {
+    increaseOrInsertMap(donationManager.polls.get(`${hairType}Color`), donation.hairColor, donation.amount)
+  }
 }
 
 
@@ -130,7 +211,7 @@ function readDonations(donationCollection)
   {
     var curDonation = donationCollection[i];
 
-    if (MANAGER_DEBUG) console.log(`Donation #${i+1}:`);
+    if (MANAGER_DEBUG && DONATION_DEBUG) console.log(`Donation #${i+1}:`);
     
     outputHTML += donationToTable(curDonation);
   }
@@ -142,7 +223,19 @@ function readDonations(donationCollection)
 // Displays the donation list as a table
 async function displayDonations()
 {
-  var donationCollection = await donationManager;
+  await buildDonationManager();
   
-  readDonations(donationCollection);
+  readDonations(donationManager.list);
+
+  if(MANAGER_DEBUG)
+    {
+      console.log(`Total: ${donationManager.total}`);
+      console.log(`Time: ${donationManager.time}`);
+      console.log("List: ");
+      console.log(donationManager.list);
+      console.log("Leaderboard: ");
+      console.log(donationManager.leaderboard);
+      console.log("Polls: ");
+      console.log(donationManager.polls);
+    }
 }
