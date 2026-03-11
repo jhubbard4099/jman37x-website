@@ -6,22 +6,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Boilerplate</title>
+    <title>Jman37X</title>
     <link rel="stylesheet" href="/css/style.css">
-    <script src="js/javascript.js" defer></script>
+    <script src="/js/javascript.js" defer></script>
+    <script src="/js/donation.js" defer></script>
+    <script src="/js/table.js" defer></script>
+    <script src="/js/donationManager.js" defer></script>
   </head>
 
-  <body>
-    <div id="header">
-      <h1>Jman37X</h1>
-      <div id="quick-links">
-        <a href="https://www.twitch.tv/jman37x" target="_blank" rel="noopener noreferrer">Twitch</a>
-        <a href="https://www.youtube.com/@Jman37X" target="_blank" rel="noopener noreferrer">YouTube</a>
-        <a href="https://discord.gg/RGW9jDF" target="_blank" rel="noopener noreferrer">Discord</a>
-      </div>
-    </div>
+  <body style="background-image: url('/img/background-galaxy.png'); background-size: 100%;">
+    <div id="card" style="background-image: url('/img/background-tiles.png'); background-size: 150%;">
 
-    <div id="card">
+      <div id="header">
+        <img src="/img/name-decorated.png"></img>
+        <div id="quick-links">
+          
+          <img src="/img/links.png" id="link-buttons"></img>
+
+          <svg style="position: absolute; height: 378px;">
+            <g class="link-button" img="/img/link-twitch.png">
+              <a href="https://www.twitch.tv/jman37x" target="_blank" rel="noopener noreferrer">
+                <polygon points="0 63,63 126,126 63,63 0"/>
+              </a>
+            </g>
+            <g transform="translate(63 63)" class="link-button">
+              <a href="https://www.youtube.com/@Jman37X" target="_blank" rel="noopener noreferrer">
+                <polygon points="0 63,63 126,126 63,63 0"/>
+              </a>
+            </g>
+            <g transform="translate(0 126)" class="link-button">
+              <a href="https://discord.gg/RGW9jDF" target="_blank" rel="noopener noreferrer">
+                <polygon points="0 63,63 126,126 63,63 0"/>
+              </a>
+            </g>
+            <g transform="translate(63 189)" class="link-button">
+              <a href="https://www.tiktok.com/@jman37x" target="_blank" rel="noopener noreferrer">
+                <polygon points="0 63,63 126,126 63,63 0"/>
+              </a>
+            </g>
+            <g transform="translate(0 252)" class="link-button">
+              <a href="https://x.com/Jman37X" target="_blank" rel="noopener noreferrer">
+                <polygon points="0 63,63 126,126 63,63 0"/>
+              </a>
+            </g>
+          </svg>
+
+        </div>
+      </div>
 
       <div id="content">
         <div id="navigation">
@@ -30,6 +61,8 @@
           <a href="/html/coming-soon.html">Coming Soon...</a>
         </div>
       </div>
+
+      <div id="htmlDonationTable"></div>
 
     </div>
     
