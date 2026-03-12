@@ -3,9 +3,9 @@
 // Note: relies on TABLE_DEBUG variable from the main javascript.js file
 
 
-// ---------------- //
-//  MAIN FUNCTIONS  //
-// ---------------- //
+// -------------------- //
+//  DONATION FUNCTIONS  //
+// -------------------- //
 
 // Opens an HTML table, builds headers, and opens the body
 // Returns: HTML representing the header rows of the table
@@ -50,7 +50,7 @@ function beginDonationTable()
 // Parameters: donation - donation object to convert
 function donationToTable(donation)
 {
-  if (TABLE_DEBUG) donationToString(donation);
+  if (TABLE_DEBUG && DONATION_DEBUG) donationToString(donation);
 
   var donationHTML = `<tr class='tblBody'>`;
   if(donation !== undefined)
@@ -75,11 +75,60 @@ function donationToTable(donation)
 }
 
 // Closes an HTML table's body and the main table
-function endDonationTable()
+function endTable()
 {
   // Close table body
   tableHTML = `</tbody>
                 </table>`;
   
   return tableHTML;
+}
+
+
+// ----------------------- //
+//  LEADERBOARD FUNCTIONS  //
+// ----------------------- //
+
+// Opens an HTML table, builds headers, and opens the body
+// Returns: HTML representing the header rows of the table
+function beginLeaderboardTable()
+{
+  // Initialize
+  var tableHTML = "<table>"
+
+  // 2nd header: donation info
+  tableHTML += `<thead>`;
+  tableHTML += `<tr>
+                  <th colspan="1">Rank</th>
+                  <th colspan="4">Donator</th>
+                  <th colspan="2">Total</th>
+                </tr>`;
+
+  // Open table body
+  tableHTML += `</thead>
+                 <tbody>`;
+
+  return tableHTML;
+}
+
+// Converts a donation to HTML to be added to the full table
+// Parameters: rank - int representing current donator's rank on the leaderboard
+//             donator - string containing the donator to display
+//             amount - float containing the total amount donated
+function leaderboardToTable(rank, donator, amount)
+{
+  if (TABLE_DEBUG) console.log(`Rank: ${rank}, Donator: ${donator}, Total: ${amount}`);
+
+  var leaderboardHTML = `<tr class='tblBody'>`;
+  if(donator !== "" && amount !== 0)
+  {
+    // Add current record to the table
+    leaderboardHTML += `<td colspan="1">${rank}</td>
+                    <td colspan="4">${donator}</td>
+                    <td colspan="2">$${amount}</td>`;
+
+  }
+  leaderboardHTML += "</tr>";
+
+  return leaderboardHTML;
 }

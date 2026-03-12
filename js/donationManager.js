@@ -38,7 +38,7 @@ class DonationManager {
 
 // Create donation manager, populate it, then displays list of donations
 const donationManager = new DonationManager();
-displayDonations();
+displayAll();
 
 
 // ------------------ //
@@ -197,45 +197,71 @@ function updatePollMaps(donation)
 //  PROCESSING FUNCTIONS  //
 // ---------------------- //
 
-// Reads the global donation manager, and displays it as a table
-// Parameters: donationCollection  - donation list to display as a table
-function readDonations(donationCollection)
+// Reads the global donation manager list, 
+// and displays it as a table
+function displayDonations()
 {
-  if (MANAGER_DEBUG) console.log(`Donation amount: ${donationCollection.length}`);
+  if (MANAGER_DEBUG) console.log(`Donation amount: ${donationManager.list.length}`);
 
   // Begin building record table
   var outputHTML = beginDonationTable();
 
   // Convert each donation to HTML and add to output
-  for(var i = 0; i < donationCollection.length; i++)
+  for(var i = 0; i < donationManager.list.length; i++)
   {
-    var curDonation = donationCollection[i];
+    var curDonation = donationManager.list[i];
 
     if (MANAGER_DEBUG && DONATION_DEBUG) console.log(`Donation #${i+1}:`);
     
     outputHTML += donationToTable(curDonation);
   }
-  outputHTML += endDonationTable();
+  outputHTML += endTable();
 
   document.getElementById("htmlDonationTable").innerHTML = outputHTML;
 }
 
+// Reads the global donation manager leaderboard, 
+// and displays it as a table
+function displayLeaderboard()
+{
+  if (MANAGER_DEBUG) console.log(`Leaderboard amount: ${donationManager.leaderboard.size}`);
+
+  // Begin building record table
+  var outputHTML = beginLeaderboardTable();
+
+  // Convert each leaderboard entry to HTML and add to output
+  var leaderboardKeys = Array.from(donationManager.leaderboard.keys());
+  for(var i = 0; i < donationManager.leaderboard.size; i++)
+  {
+    var curLeaderboardKey = leaderboardKeys[i];
+    var curLeaderboardValue = donationManager.leaderboard.get(curLeaderboardKey);
+
+    if (MANAGER_DEBUG && DONATION_DEBUG) console.log(`Leaderboard #${i+1}:`);
+    
+    outputHTML += leaderboardToTable(i+1, curLeaderboardKey, curLeaderboardValue);
+  }
+  outputHTML += endTable();
+
+  document.getElementById("htmlLeaderboardTable").innerHTML = outputHTML;
+}
+
 // Displays the donation list as a table
-async function displayDonations()
+async function displayAll()
 {
   await buildDonationManager();
   
-  readDonations(donationManager.list);
+  displayDonations();
+  displayLeaderboard();
 
   if(MANAGER_DEBUG)
-    {
-      console.log(`Total: ${donationManager.total}`);
-      console.log(`Time: ${donationManager.time}`);
-      console.log("List: ");
-      console.log(donationManager.list);
-      console.log("Leaderboard: ");
-      console.log(donationManager.leaderboard);
-      console.log("Polls: ");
-      console.log(donationManager.polls);
-    }
+  {
+    console.log(`Total: ${donationManager.total}`);
+    console.log(`Time: ${donationManager.time}`);
+    console.log("List: ");
+    console.log(donationManager.list);
+    console.log("Leaderboard: ");
+    console.log(donationManager.leaderboard);
+    console.log("Polls: ");
+    console.log(donationManager.polls);
+  }
 }
