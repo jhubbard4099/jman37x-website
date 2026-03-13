@@ -106,11 +106,13 @@ body {
 
 #charts {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .chartHolder {
   padding: 20px;
   height: 500px;
+  width: 500px;
 }
 
 canvas {
@@ -128,6 +130,7 @@ canvas {
 #quick-links {
   display: flex;
   flex-direction: column;
+  filter: drop-shadow(0px 0px 5px black);
 }
 
 #footer {
@@ -152,13 +155,14 @@ button {
   border-color: rgb(66, 7, 7);
   background: rgb(82, 5, 5);
   color: lightgrey;
+  filter: drop-shadow(0px 0px 5px black);
 }
 
 button:hover {
-  filter: brightness(115%);
+  filter: brightness(115%) drop-shadow(0px 0px 5px black);
 }
 button:active {
-  filter: brightness(85%);
+  filter: brightness(85%) drop-shadow(0px 0px 5px black);
 }
 
 polygon {
@@ -193,7 +197,7 @@ table, td {
   height: 40px;
   padding: 4px;
   color: lightgrey;
-  filter: drop-shadow(0px 0px 5px #000000c7);
+  filter: drop-shadow(0px 0px 5px black);
 }
 
 thead {

@@ -269,6 +269,8 @@ async function displayAll()
   displayLeaderboard();
   displayColorChart("hair");
   displayColorChart("beard");
+  displayCutChart("hair");
+  displayCutChart("beard");
 
   if(MANAGER_DEBUG)
   {

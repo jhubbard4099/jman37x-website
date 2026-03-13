@@ -33,6 +33,67 @@ function capitalizeFirstLetter(string)
 //  FUNCTIONS  //
 // ----------- //
 
+function displayCutChart(hairType)
+{
+  // Create string variables for better readability
+  var hairCutString = `${hairType}Cut`;
+  var hairKeepString = `${hairType}Keep`;
+  var titleString = capitalizeFirstLetter(hairType) + " Cut vs. Keep Poll"
+  console.log(hairCutString)
+
+  // Extract the colors and amounts from the global Donation Manager
+  var hairCutAmount = donationManager.polls.get(hairCutString);
+  var hairKeepAmount = donationManager.polls.get(hairKeepString);
+
+  // Create the pie chart and store it in the corresponding HTML element
+  const ctx = document.getElementById(`${hairCutString}Graph`);
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ["Cut", "Keep"],
+      datasets: [{
+        label: 'Money raised ($)',
+        data: [hairCutAmount, hairKeepAmount],
+        backgroundColor: ["red", "green"],
+        borderColor: "rgb(34, 34, 34)",
+        borderWidth: 2,
+        hoverOffset: 20,
+        hoverBorderColor: "black"
+      }]
+    },
+    options: {
+      radius: "90%",
+      plugins: {
+        legend: {
+          onHover: function (e) {
+            e.native.target.style.cursor = "pointer";
+          },
+          onLeave: function (e) {
+            e.native.target.style.cursor = "default";
+          },
+          display: true,
+          labels: {
+            color: "black",
+            font: {
+              size: 16,
+              weight: 900
+            }
+          },
+          title: {
+            display: true,
+            text: titleString,
+            color: "black",
+            font: {
+              size: 20,
+              weight: "bold"
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
 // Uses Chart.js to create a pie chart representing
 // the current votes for hair color.
 // Parameters: hairType - string containing which type of hair to check
@@ -40,7 +101,7 @@ function displayColorChart(hairType)
 {
   // Create string variables for better readability
   var hairColorString = `${hairType}Color`;
-  var titleString = capitalizeFirstLetter(hairType) + " Color"
+  var titleString = capitalizeFirstLetter(hairType) + " Color Poll"
 
   // Extract the colors and amounts from the global Donation Manager
   var hairColors = Array.from(donationManager.polls.get(hairColorString).keys());
@@ -68,11 +129,12 @@ function displayColorChart(hairType)
         backgroundColor: chartColors,
         borderColor: "rgb(34, 34, 34)",
         borderWidth: 2,
-        hoverOffset: 10,
+        hoverOffset: 20,
         hoverBorderColor: "black"
       }]
     },
     options: {
+      radius: "90%",
       plugins: {
         legend: {
           onHover: function (e) {
@@ -85,7 +147,7 @@ function displayColorChart(hairType)
           labels: {
             color: "black",
             font: {
-              size: 16,
+              size: 12,
               weight: 900
             }
           },

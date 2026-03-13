@@ -3,6 +3,20 @@
 // Note: relies on RECORD_DEBUG variable from the main javascript.js file
 
 
+// --------------------- //
+//  CONSTANTS & GLOBALS  //
+// --------------------- //
+
+// Max allowed by Twitch/Streamlabs
+const MAX_USERNAME_LENGTH = 25;
+
+// Max allowed by chat messages (most limit to 255, but bits can be 500)
+const MAX_MESSAGE_LENGTH = 500;
+
+// Longest CSS color is lightgoldenrodyellow
+const MAX_COLOR_LENGTH = 20;
+
+
 // ------------------ //
 //  HELPER FUNCTIONS  //
 // ------------------ //
@@ -76,7 +90,13 @@ function createDonation(row)
   // Fetch hair-related strings
   var curHairType = (row[7] === null) ? "" : row[7].v;
   var curHairLength = (row[8] === null) ? "" : row[8].v;
-  var curHairColor = (row[9] === null) ? "" : row[9].v;
+  var curHairColor = (row[9].v === null) ? "" : row[9].v;
+
+  // Bounds checking on a few fields
+  curDonator = (curDonator.length > MAX_USERNAME_LENGTH ) ? curDonator.slice(0, MAX_USERNAME_LENGTH) : curDonator;
+  curMessage = (curMessage.length > MAX_MESSAGE_LENGTH ) ? curMessage.slice(0, MAX_MESSAGE_LENGTH) : curMessage;
+  curHairColor = (curHairColor.length > MAX_COLOR_LENGTH ) ? curHairColor.slice(0, MAX_COLOR_LENGTH) : curHairColor;
+  console.log(curHairColor.length);
 
   // Build and return a Record object
   return new Donation(curDonator, curAmount, curType, curMessage, curHairType, curHairLength, curHairColor);
