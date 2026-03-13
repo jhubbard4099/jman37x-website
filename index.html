@@ -11,23 +11,64 @@
     <script src="js/javascript.js" defer></script>
   </head>
 
-  <body>
-    <div id="header">
-      <h1>Jman37X</h1>
-      <div id="quick-links">
-        <a href="https://www.twitch.tv/jman37x" target="_blank" rel="noopener noreferrer">Twitch</a>
-        <a href="https://www.youtube.com/@Jman37X" target="_blank" rel="noopener noreferrer">YouTube</a>
-        <a href="https://discord.gg/RGW9jDF" target="_blank" rel="noopener noreferrer">Discord</a>
-      </div>
-    </div>
+  <body style="background-image: url('/img/background-galaxy.png'); background-size: 100%;">
+    <div id="card" style="background-image: url('/img/background-tiles.png'); background-size: 150%;">
 
-    <div id="card">
+      <div id="header">
+        <img src="/img/name.png" style="visibility: hidden;"></img>
+        <img src="/img/name-decorated.png" style="position: absolute; top: -60px;"></img>
+        <div id="quick-links">
+          
+          <img src="/img/links.png" id="link-buttons"></img>
+
+          <svg style="position: absolute; height: 378px;">
+            <g class="link-button" img="/img/link-twitch.png">
+              <a href="https://www.twitch.tv/jman37x" target="_blank" rel="noopener noreferrer">
+                <polygon points="0 63,63 126,126 63,63 0"/>
+              </a>
+            </g>
+            <g transform="translate(63 63)" class="link-button">
+              <a href="https://www.youtube.com/@Jman37X" target="_blank" rel="noopener noreferrer">
+                <polygon points="0 63,63 126,126 63,63 0"/>
+              </a>
+            </g>
+            <g transform="translate(0 126)" class="link-button">
+              <a href="https://discord.gg/RGW9jDF" target="_blank" rel="noopener noreferrer">
+                <polygon points="0 63,63 126,126 63,63 0"/>
+              </a>
+            </g>
+            <g transform="translate(63 189)" class="link-button">
+              <a href="https://www.tiktok.com/@jman37x" target="_blank" rel="noopener noreferrer">
+                <polygon points="0 63,63 126,126 63,63 0"/>
+              </a>
+            </g>
+            <g transform="translate(0 252)" class="link-button">
+              <a href="https://x.com/Jman37X" target="_blank" rel="noopener noreferrer">
+                <polygon points="0 63,63 126,126 63,63 0"/>
+              </a>
+            </g>
+          </svg>
+
+        </div>
+      </div>
 
       <div id="content">
-        <div id="navigation">
-          <a href="/index.html">Home</a>
-          <a href="/html/jmarathon.html">Jmarathon</a>
-          <a href="/html/coming-soon.html">Coming Soon...</a>
+        <div id="navigation" style="background-color: rgba(0, 0, 0, 0.9);">
+          <a href="/index.html">
+            <button class="navButton">Home</button>
+          </a>
+          <a href="/html/jmarathon.html">
+            <button class="navButton">Jmarathon</button>
+          </a>
+        </div>
+
+        <div id="page" style="background-image: url('/img/background-galaxy.png'); background-size: 100%;">
+
+            <p class="wavy">This section is not yet finished.</p>
+            <p class="wavy">There will be many wonders to see here, but not today.</p>
+            <p class="wavy">Please see "Jmarathon" for current website progress.</p>
+            <p class="wavy">Thank you.</p>
+
         </div>
       </div>
 
