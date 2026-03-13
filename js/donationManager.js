@@ -185,10 +185,25 @@ function updatePollMaps(donation)
     donationManager.polls.set(`${hairType}Keep`, tempAmount + donation.amount);
   }
 
-  // Send color logic to custom Map function
-  if(donation.hairColor != "")
+  // If a color is present, store it directly into the color map.
+  // If not, manually check the message in case they forgot the special formatting
+  if(donation.hairColor != "" && donation.hairColor != null)
   {
     increaseOrInsertMap(donationManager.polls.get(`${hairType}Color`), donation.hairColor, donation.amount)
+  }
+  else
+  {
+    var messageArray = donation.message.split(" ");
+    for(i = 0; i < messageArray.length; i++)
+    {
+      // Check each word of the message, and break if there is ever a hit
+      curWord = messageArray[i];
+      if(isValidColor(curWord))
+      {
+        increaseOrInsertMap(donationManager.polls.get(`${hairType}Color`), curWord, donation.amount)
+        break;
+      }
+    }
   }
 }
 
@@ -252,6 +267,8 @@ async function displayAll()
   
   displayDonations();
   displayLeaderboard();
+  displayColorChart("hair");
+  displayColorChart("beard");
 
   if(MANAGER_DEBUG)
   {

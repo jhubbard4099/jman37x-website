@@ -8,17 +8,20 @@
 
     <title>Jman37X</title>
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/js/javascript.js" defer></script>
     <script src="/js/donation.js" defer></script>
     <script src="/js/table.js" defer></script>
     <script src="/js/donationManager.js" defer></script>
+    <script src="/js/graphics.js" defer></script>
   </head>
 
   <body style="background-image: url('/img/background-galaxy.png'); background-size: 100%;">
     <div id="card" style="background-image: url('/img/background-tiles.png'); background-size: 150%;">
 
       <div id="header">
-        <img src="/img/name-decorated.png"></img>
+        <img src="/img/name.png" style="visibility: hidden;"></img>
+        <img src="/img/name-decorated.png" style="position: absolute; top: -60px;"></img>
         <div id="quick-links">
           
           <img src="/img/links.png" id="link-buttons"></img>
@@ -56,14 +59,31 @@
 
       <div id="content">
         <div id="navigation">
-          <a href="/index.html">Home</a>
-          <a href="/html/jmarathon.html">Jmarathon</a>
-          <a href="/html/coming-soon.html">Coming Soon...</a>
+          <a href="/index.html">
+            <button class="navButton">Home</button>
+          </a>
+          <a href="/html/jmarathon.html">
+            <button class="navButton">Jmarathon</button>
+          </a>
+        </div>
+
+        <div id="page">
+
+          <div id="charts">
+            <div class="chartHolder">
+              <canvas id="hairColorGraph"></canvas>
+            </div>
+
+            <div class="chartHolder">
+              <canvas id="beardColorGraph"></canvas>
+            </div>
+          </div>
+
+          <div id="htmlDonationTable"></div>
+          <div id="htmlLeaderboardTable"></div>
+
         </div>
       </div>
-
-      <div id="htmlDonationTable"></div>
-      <div id="htmlLeaderboardTable"></div>
 
     </div>
     
