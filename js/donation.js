@@ -96,7 +96,7 @@ function createDonation(row)
   curDonator = (curDonator.length > MAX_USERNAME_LENGTH ) ? curDonator.slice(0, MAX_USERNAME_LENGTH) : curDonator;
   curMessage = (curMessage.length > MAX_MESSAGE_LENGTH ) ? curMessage.slice(0, MAX_MESSAGE_LENGTH) : curMessage;
   curHairColor = (curHairColor.length > MAX_COLOR_LENGTH ) ? curHairColor.slice(0, MAX_COLOR_LENGTH) : curHairColor;
-  console.log(curHairColor.length);
+  if(DONATION_DEBUG) console.log(curHairColor.length);
 
   // Build and return a Record object
   return new Donation(curDonator, curAmount, curType, curMessage, curHairType, curHairLength, curHairColor);

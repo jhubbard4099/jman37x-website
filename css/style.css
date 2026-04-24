@@ -66,6 +66,25 @@ tr.tblBody,
   }
 }
 
+/* Goal meter squashing animation */
+/* .jmarathon-goal-sets {
+  width: 300px;
+  height: auto;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.jmarathon-goal-meter-mid {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease-in-out; 
+  will-change: transform; 
+}
+
+.jmarathon-goal-sets:hover {
+  transform: scale(0.9, 0.2)
+} */
+
 
 /* --------------- */
 /*  Pointer Rules  */
@@ -127,14 +146,70 @@ body {
 #page {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  gap: 20px;
   padding: 20px 0px 20px 0px;
   backdrop-filter: blur(5px);
   background-color: rgba(0, 0, 0, 0.24);
 }
 
+#jmarathon-title {
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
+  filter: drop-shadow(0px 0px 5px white);
+}
+
+#jmarathon-goal-meter {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-width: 400px;
+}
+.jmarathon-goal-meter-img {
+  position: relative;
+}
+#jmarathon-total {
+  position: absolute;
+  color: aliceblue;
+  text-align: center;
+  font-weight: bold;
+  font-size: 50px;
+  left: 60px;
+  top: 260px;
+  z-index: 999;
+}
+#jmarathon-meter-fill {
+  position: relative;
+  fill: blue;
+}
+.jmarathon-goal-segment {
+  display: flex;
+  z-index: 0;
+}
+.jmarathon-goal-set {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 85px;
+}
+
+#jmarathon-top-row {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  gap: 10px;
+}
+
+#jmarathon-body {
+  display: flex;
+}
+
 #charts {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .chartHolder {

@@ -38,7 +38,6 @@ class DonationManager {
 
 // Create donation manager, populate it, then displays list of donations
 const donationManager = new DonationManager();
-displayAll();
 
 
 // ------------------ //
@@ -151,6 +150,9 @@ async function buildDonationManager()
       updatePollMaps(curDonation);
     }
   }
+
+  // Round total to nearest cent
+  donationManager.total = donationManager.total.toFixed(2);
 
   // Sort the Maps from largest to smallest values
   donationManager.leaderboard = new Map([...donationManager.leaderboard.entries()].sort((a, b) => b[1] - a[1]));
@@ -271,6 +273,7 @@ async function displayAll()
   displayColorChart("beard");
   displayCutChart("hair");
   displayCutChart("beard");
+  // displayHairCharts("hair");
 
   if(MANAGER_DEBUG)
   {

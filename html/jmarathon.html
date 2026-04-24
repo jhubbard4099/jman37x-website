@@ -14,6 +14,7 @@
     <script src="/js/table.js" defer></script>
     <script src="/js/donationManager.js" defer></script>
     <script src="/js/graphics.js" defer></script>
+    <script src="/js/html.js" defer></script>
   </head>
 
   <body style="background-image: url('/img/background-galaxy.png'); background-size: 100%;">
@@ -69,26 +70,127 @@
 
         <div id="page">
 
-          <div id="charts">
-            <div class="chartHolder">
-              <canvas id="hairColorGraph"></canvas>
-            </div>
+          <div id="jmarathon-header">
+            <div id="jmarathon-title">THE JMARATHON</div>
 
-            <div class="chartHolder">
-              <canvas id="beardColorGraph"></canvas>
-            </div>
+            <div id="jmarathon-top-row">
 
-            <div class="chartHolder">
-              <canvas id="hairCutGraph"></canvas>
-            </div>
+              <div id="jmarathon-text">
+                <p>This section is not yet finished.</p>
+                <p>There will be many wonders to see here, but not today.</p>
+                <p>Please see "Jmarathon" for current website progress.</p>
+                <p>Stay tuned for future developments and updates.</p>
+                <p>Thank you.</p>
+              </div>
 
-            <div class="chartHolder">
-              <canvas id="beardCutGraph"></canvas>
+              <!-- Add a placeholder for the Twitch embed -->
+              <div id="twitch-embed"></div>
+
+              <!-- Load the Twitch embed JavaScript file -->
+              <script src="https://embed.twitch.tv/embed/v1.js"></script>
+
+              <!-- Create a Twitch.Embed object that will render within the "twitch-embed" element -->
+              <!-- <script type="text/javascript">
+                new Twitch.Embed("twitch-embed", {
+                  width: 700,
+                  height: 360,
+                  channel: "jman37x",
+                });
+              </script> -->
             </div>
           </div>
 
-          <div id="htmlDonationTable"></div>
-          <div id="htmlLeaderboardTable"></div>
+          <div id="jmarathon-body">
+
+            <div id="jmarathon-goal-meter">
+              <svg style="position: absolute; height: 4000px; z-index: 0;">
+                <rect id="jmarathon-meter-fill" x="70px" y="190px" width="115px" height="60px"></rect>
+              </svg>
+              <img class="jmarathon-goal-meter-img" src="/img/goal-meter-top.png">
+              <div id="jmarathon-total"></div>
+
+              <div class="jmarathon-goal-segment" data-max="100">
+                <img class="jmarathon-goal-meter-img" src="/img/goal-meter-mid.png">
+                <div class="jmarathon-goal-set">
+                  <p class="jmarathon-goal" data-goal=25>Roblox Segment</p>
+                  <p class="jmarathon-goal" data-goal=50>Subscriber Control Segment</p>
+                  <p class="jmarathon-goal" data-goal=75>Cooking Segment</p>
+                  <p class="jmarathon-goal" data-goal=100>Tier List Stream + Segment</p>
+                </div>
+              </div>
+              <div class="jmarathon-goal-segment" data-max="250" style="display:none;">
+                <img src="/img/goal-meter-mid.png">
+                <div class="jmarathon-goal-set">
+                  <p class="jmarathon-goal" data-goal=135>Nail Polish Segment (Vote)</p>
+                  <p class="jmarathon-goal" data-goal=170>Magic the Gathering Segment</p>
+                  <p class="jmarathon-goal" data-goal=205>YuGiOh! Segment</p>
+                  <p class="jmarathon-goal" data-goal=250>Mario Party Drinking Stream + Segment</p>
+                </div>
+              </div>
+              <div class="jmarathon-goal-segment" data-max="500" style="display:none;">
+                <img src="/img/goal-meter-mid.png">
+                <div class="jmarathon-goal-set">
+                  <p class="jmarathon-goal" data-goal=310>???</p>
+                  <p class="jmarathon-goal" data-goal=370>Ring Fit Segment</p>
+                  <p class="jmarathon-goal" data-goal=430>Costume Party Segment (Vote)</p>
+                  <p class="jmarathon-goal" data-goal=500>Board Game Stream + Segment</p>
+                </div>
+              </div>
+              <div class="jmarathon-goal-segment" data-max="1000" style="display:none;">
+                <img src="/img/goal-meter-mid.png">
+                <div class="jmarathon-goal-set">
+                  <p class="jmarathon-goal" data-goal=625>Jmom Segment</p>
+                  <p class="jmarathon-goal" data-goal=750>Makeover Segment</p>
+                  <p class="jmarathon-goal" data-goal=875>???</p>
+                  <p class="jmarathon-goal" data-goal=1000>Movie Night Stream + Segment</p>
+                </div>
+              </div>
+              <div class="jmarathon-goal-segment" data-max="2000" style="display:none;">
+                <img src="/img/goal-meter-mid.png">
+                <div class="jmarathon-goal-set">
+                  <p class="jmarathon-goal" data-goal=1250>???</p>
+                  <p class="jmarathon-goal" data-goal=1500>???</p>
+                  <p class="jmarathon-goal" data-goal=1750>???</p>
+                  <p class="jmarathon-goal" data-goal=2000>New PC + PC Building Stream</p>
+                </div>
+              </div>
+              <div class="jmarathon-goal-segment" data-max="5000" style="display:none;">
+                <img src="/img/goal-meter-mid.png">
+                <div class="jmarathon-goal-set">
+                  <p class="jmarathon-goal" data-goal=2750>???</p>
+                  <p class="jmarathon-goal" data-goal=3500>???</p>
+                  <p class="jmarathon-goal" data-goal=4250>???</p>
+                  <p class="jmarathon-goal" data-goal=5000>???</p>
+                </div>
+              </div>
+            </div>
+
+            <div id="jmarathon-right">
+              <div id="charts">
+                <div class="chartHolder">
+                  <canvas id="hairColorGraph"></canvas>
+                </div>
+
+                <div class="chartHolder">
+                  <canvas id="beardColorGraph"></canvas>
+                </div>
+
+                <div class="chartHolder">
+                  <canvas id="hairCutGraph"></canvas>
+                </div>
+
+                <div class="chartHolder">
+                  <canvas id="beardCutGraph"></canvas>
+                </div>
+              </div>
+
+              <div id="tables">
+                <div id="htmlDonationTable"></div>
+                <div id="htmlLeaderboardTable"></div>
+              </div>
+            </div>
+
+          </div>
 
         </div>
       </div>
