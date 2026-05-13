@@ -1,5 +1,4 @@
-// File header
-
+// Chart.js visualizations
 
 // ------------------ //
 //  HELPER FUNCTIONS  //

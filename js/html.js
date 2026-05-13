@@ -1,4 +1,4 @@
-// File header
+// Page initialization and goal meter logic
 
 // --------------------- //
 //  CONSTANTS & GLOBALS  //

@@ -1,4 +1,4 @@
-// Website for browsing & selecting from my vinyl record collection
+// Donation Tracker for the Jmarathon / jman37x.com
 // This file contains all the functions related to building the HTML table
 // Note: relies on TABLE_DEBUG variable from the main javascript.js file
 
@@ -55,7 +55,7 @@ function donationToTable(donation)
   var donationHTML = `<tr class='tblBody'>`;
   if(donation !== undefined)
   {
-    // Add current record to the table
+    // Add current donation to the table
     donationHTML += `<td colspan="2">${donation.donator}</td>
                     <td colspan="1">$${donation.amount}</td>
                     <td colspan="2">${donation.type}</td>
@@ -122,7 +122,7 @@ function leaderboardToTable(rank, donator, amount)
   var leaderboardHTML = `<tr class='tblBody'>`;
   if(donator !== "" && amount !== 0)
   {
-    // Add current record to the table
+    // Add current donation to the table
     leaderboardHTML += `<td colspan="1">${rank}</td>
                     <td colspan="4">${donator}</td>
                     <td colspan="2">$${amount}</td>`;

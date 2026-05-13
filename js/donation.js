@@ -1,6 +1,6 @@
-// Website for browsing & selecting from my vinyl record collection
-// This file contains all the functions related to Record objects
-// Note: relies on RECORD_DEBUG variable from the main javascript.js file
+// Donation Tracker for the Jmarathon / jman37x.com
+// This file contains all the functions related to Donation objects
+// Note: relies on DONATION_DEBUG variable from the main javascript.js file
 
 
 // --------------------- //
@@ -21,9 +21,9 @@ const MAX_COLOR_LENGTH = 20;
 //  HELPER FUNCTIONS  //
 // ------------------ //
 
-// Convert record to a printable string, which is also sent to the console
-// Parameters: record - a Record object to convert to a string
-// Returns:    a string representation of a record
+// Convert donation to a printable string, which is also sent to the console
+// Parameters: donation - a Donation object to convert to a string
+// Returns:    a string representation of a donation
 function donationToString(donation)
 {
   var donationString = "";
@@ -98,6 +98,6 @@ function createDonation(row)
   curHairColor = (curHairColor.length > MAX_COLOR_LENGTH ) ? curHairColor.slice(0, MAX_COLOR_LENGTH) : curHairColor;
   if(DONATION_DEBUG) console.log(curHairColor.length);
 
-  // Build and return a Record object
+  // Build and return a Donation object
   return new Donation(curDonator, curAmount, curType, curMessage, curHairType, curHairLength, curHairColor);
 }

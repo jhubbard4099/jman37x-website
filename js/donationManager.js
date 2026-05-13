@@ -1,9 +1,8 @@
-// Website for browsing & selecting from my vinyl record collection
-// This file contains all the functions related to the full Record collection
-// Note: relies on MANAGER_DEBUG and TEST_URL variable from the main javascript.js file
+// Donation Tracker for the Jmarathon / jman37x.com
+// This file contains all functions related to the DonationManager
+// Note: relies on MANAGER_DEBUG and TEST_SHEET constants from javascript.js
 //
-// Main sheet: https://docs.google.com/spreadsheets/d/1xr7AxVFrFkv1fBzspuMmcXcOBlGwNVRYmdGTj3gkvBQ
-// Test sheet: https://docs.google.com/spreadsheets/d/13ooKXitlRdYBmN1CWV8ylQULB_wPFZmnIZONTYyRR8k
+// Main / Test sheet: https://docs.google.com/spreadsheets/d/1EpijaGgCD-AGFlejKhpSs-P9QG1q3g86-2PumGFCRiA
 
 
 // -------------------- //
@@ -220,7 +219,7 @@ function displayDonations()
 {
   if (MANAGER_DEBUG) console.log(`Donation amount: ${donationManager.list.length}`);
 
-  // Begin building record table
+  // Begin building donation table
   var outputHTML = beginDonationTable();
 
   // Convert each donation to HTML and add to output
@@ -243,7 +242,7 @@ function displayLeaderboard()
 {
   if (MANAGER_DEBUG) console.log(`Leaderboard amount: ${donationManager.leaderboard.size}`);
 
-  // Begin building record table
+  // Begin building donation table
   var outputHTML = beginLeaderboardTable();
 
   // Convert each leaderboard entry to HTML and add to output
